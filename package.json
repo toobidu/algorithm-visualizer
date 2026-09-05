@@ -1,0 +1,65 @@
+{
+  "name": "algorithm-visualizer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "quality": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm deps:cycles && pnpm deps:unused",
+    "typecheck": "tsc --build --verbose",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "deps:cycles": "madge --circular --extensions ts,tsx apps packages config",
+    "deps:unused": "knip",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "bench": "vitest bench --run",
+    "audit:security": "pnpm audit --audit-level=high",
+    "prepare": "husky",
+    "gen:barrels": "node scripts/gen-barrels.mjs",
+    "piston:up": "docker compose -f deploy/piston/docker-compose.yml up -d",
+    "piston:down": "docker compose -f deploy/piston/docker-compose.yml down",
+    "piston:install": "node scripts/piston.mjs install",
+    "piston:check": "node scripts/piston.mjs check",
+    "dev": "pnpm --filter @av/web dev",
+    "dev:gateway": "pnpm --filter @av/gateway dev",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --max-warnings=0 --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yaml,yml,scss,css}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@playwright/test": "^1.63.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^22.10.6",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "husky": "^9.1.7",
+    "jsdom": "^30.0.1",
+    "knip": "^5.42.1",
+    "lint-staged": "^15.3.0",
+    "madge": "^8.0.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,6 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  - 'config'
+  - 'tracers/javascript'
+  - 'tracers/_conformance'
