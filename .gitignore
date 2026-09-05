@@ -1,0 +1,27 @@
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+.eslintcache
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+*.log
+
+.vite/
+.turbo/
+playwright-report/
+test-results/
+bench-result.json
+*.tgz
+
+.vscode/
+.idea/
+
+# Ghi chu ke hoach ca nhan, khong phai tai lieu du an
+/PLAN.md

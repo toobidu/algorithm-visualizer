@@ -1,0 +1,12 @@
+# Bat buoc LF: may phat trien la Windows, ma bo tuan thu o Phase 4 so sanh tung byte (§3.5 quy tac 5)
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+# Barrel la san pham sinh, khong sua tay (§5.6 co che 2)
+**/index.generated.ts linguist-generated=true
+pnpm-lock.yaml linguist-generated=true
