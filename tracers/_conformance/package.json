@@ -1,0 +1,15 @@
+{
+  "name": "@av/conformance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@av/config": "workspace:*",
+    "@av/gateway": "workspace:*",
+    "@av/protocol": "workspace:*",
+    "@av/tracer-javascript": "workspace:*"
+  },
+  "scripts": {
+    "typecheck": "tsc --build"
+  }
+}
