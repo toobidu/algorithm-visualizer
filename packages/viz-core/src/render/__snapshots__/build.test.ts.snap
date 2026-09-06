@@ -1,0 +1,361 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`buildScene tren toan bo fixture > array1d-sort dung duoc canh on dinh 1`] = `
+{
+  "columnHeader": [
+    {
+      "text": "0",
+      "tone": "index",
+    },
+    {
+      "text": "1",
+      "tone": "index",
+    },
+    {
+      "text": "2",
+      "tone": "index",
+    },
+    {
+      "text": "3",
+      "tone": "index",
+    },
+  ],
+  "kind": "grid",
+  "rows": [
+    {
+      "cells": [
+        {
+          "text": "3",
+          "tone": "default",
+        },
+        {
+          "text": "5",
+          "tone": "default",
+        },
+        {
+          "text": "8",
+          "tone": "default",
+        },
+        {
+          "text": "1",
+          "tone": "default",
+        },
+      ],
+      "header": undefined,
+    },
+  ],
+  "showRowIndex": false,
+  "title": "Mang",
+}
+`;
+
+exports[`buildScene tren toan bo fixture > array2d-grid dung duoc canh on dinh 1`] = `
+{
+  "columnHeader": [
+    {
+      "text": "0",
+      "tone": "index",
+    },
+    {
+      "text": "1",
+      "tone": "index",
+    },
+    {
+      "text": "2",
+      "tone": "index",
+    },
+  ],
+  "kind": "grid",
+  "rows": [
+    {
+      "cells": [
+        {
+          "text": "1",
+          "tone": "default",
+        },
+        {
+          "text": "2",
+          "tone": "selected",
+        },
+        {
+          "text": "3",
+          "tone": "default",
+        },
+      ],
+      "header": {
+        "text": "0",
+        "tone": "index",
+      },
+    },
+    {
+      "cells": [
+        {
+          "text": "4",
+          "tone": "default",
+        },
+        {
+          "text": "5",
+          "tone": "selected",
+        },
+        {
+          "text": "6",
+          "tone": "default",
+        },
+      ],
+      "header": {
+        "text": "1",
+        "tone": "index",
+      },
+    },
+  ],
+  "showRowIndex": true,
+  "title": "Luoi",
+}
+`;
+
+exports[`buildScene tren toan bo fixture > chart-linked dung duoc canh on dinh 1`] = `
+{
+  "children": [
+    {
+      "columnHeader": [
+        {
+          "text": "0",
+          "tone": "index",
+        },
+        {
+          "text": "1",
+          "tone": "index",
+        },
+        {
+          "text": "2",
+          "tone": "index",
+        },
+      ],
+      "kind": "grid",
+      "rows": [
+        {
+          "cells": [
+            {
+              "text": "4",
+              "tone": "default",
+            },
+            {
+              "text": "7",
+              "tone": "default",
+            },
+            {
+              "text": "2",
+              "tone": "default",
+            },
+          ],
+          "header": undefined,
+        },
+      ],
+      "showRowIndex": false,
+      "title": "Mang",
+    },
+    {
+      "bars": [
+        {
+          "label": "4",
+          "tone": "default",
+          "value": 4,
+        },
+        {
+          "label": "7",
+          "tone": "default",
+          "value": 7,
+        },
+        {
+          "label": "2",
+          "tone": "default",
+          "value": 2,
+        },
+      ],
+      "kind": "bars",
+      "title": "Bieu do",
+    },
+  ],
+  "direction": "horizontal",
+  "kind": "split",
+  "weights": [
+    1,
+    1,
+  ],
+}
+`;
+
+exports[`buildScene tren toan bo fixture > graph-dfs dung duoc canh on dinh 1`] = `
+{
+  "children": [
+    {
+      "edges": [
+        {
+          "from": {
+            "x": 0,
+            "y": 0,
+          },
+          "label": undefined,
+          "to": {
+            "x": 0,
+            "y": 0,
+          },
+          "tone": "default",
+        },
+        {
+          "from": {
+            "x": 0,
+            "y": 0,
+          },
+          "label": undefined,
+          "to": {
+            "x": 0,
+            "y": 0,
+          },
+          "tone": "default",
+        },
+      ],
+      "isDirected": false,
+      "isWeighted": false,
+      "kind": "graph",
+      "nodeRadius": 12,
+      "nodes": [
+        {
+          "text": "0",
+          "tone": "default",
+          "weight": undefined,
+          "x": 0,
+          "y": -128,
+        },
+        {
+          "text": "1",
+          "tone": "default",
+          "weight": undefined,
+          "x": -64,
+          "y": 128,
+        },
+        {
+          "text": "2",
+          "tone": "default",
+          "weight": undefined,
+          "x": 64,
+          "y": 128,
+        },
+      ],
+      "title": "Do thi",
+      "viewBox": [
+        -160,
+        -160,
+        320,
+        320,
+      ],
+    },
+    {
+      "kind": "log",
+      "text": " -> 0
+0 -> 1
+0 <- 1
+0 -> 2
+0 <- 2
+ <- 0
+",
+      "title": "Console",
+    },
+  ],
+  "direction": "vertical",
+  "kind": "split",
+  "weights": [
+    1,
+    1,
+  ],
+}
+`;
+
+exports[`buildScene tren toan bo fixture > layout-nested dung duoc canh on dinh 1`] = `
+{
+  "children": [
+    {
+      "children": [
+        {
+          "columnHeader": [
+            {
+              "text": "0",
+              "tone": "index",
+            },
+          ],
+          "kind": "grid",
+          "rows": [
+            {
+              "cells": [
+                {
+                  "text": "1",
+                  "tone": "default",
+                },
+              ],
+              "header": undefined,
+            },
+          ],
+          "showRowIndex": false,
+          "title": "A",
+        },
+      ],
+      "direction": "horizontal",
+      "kind": "split",
+      "weights": [
+        1,
+      ],
+    },
+    {
+      "kind": "log",
+      "text": "",
+      "title": "Log",
+    },
+  ],
+  "direction": "vertical",
+  "kind": "split",
+  "weights": [
+    1,
+    1,
+  ],
+}
+`;
+
+exports[`buildScene tren toan bo fixture > log-printf dung duoc canh on dinh 1`] = `
+{
+  "kind": "log",
+  "text": "bat dau
+x = 42khong xuong dong",
+  "title": "Console",
+}
+`;
+
+exports[`buildScene tren toan bo fixture > markdown-doc dung duoc canh on dinh 1`] = `
+{
+  "kind": "markdown",
+  "text": "# Tieu de
+
+Noi dung.",
+  "title": "Markdown",
+}
+`;
+
+exports[`buildScene tren toan bo fixture > scatter-points dung duoc canh on dinh 1`] = `
+{
+  "kind": "scatter",
+  "series": [
+    {
+      "points": [],
+      "radius": 2,
+    },
+    {
+      "points": [],
+      "radius": 4,
+    },
+    {
+      "points": [],
+      "radius": 6,
+    },
+  ],
+  "title": "Phan tan",
+}
+`;
