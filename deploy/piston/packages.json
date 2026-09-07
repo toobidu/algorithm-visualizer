@@ -1,0 +1,5 @@
+{
+  "note": "Ten GOI de cai (khac ten runtime de chay). Xem config/src/types.ts.",
+  "enabled": ["python", "gcc", "go", "java", "ruby", "php", "node", "typescript"],
+  "planned": ["dotnet", "dart", "racket", "rust", "swift", "erlang", "elixir", "kotlin", "scala"]
+}

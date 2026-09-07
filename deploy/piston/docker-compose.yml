@@ -1,0 +1,40 @@
+# Piston tu host — PLAN.md Task 3.1.
+#
+# Khong tu viet sandbox: Piston da co san 18/18 ngon ngu, gioi han CPU/RAM/thoi gian,
+# va tach hai giai doan bien dich / chay. Xem deploy/piston/README.md.
+services:
+  api:
+    image: ghcr.io/engineer-man/piston
+    container_name: av-piston
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - '2000:2000'
+    volumes:
+      - piston-packages:/piston/packages
+    tmpfs:
+      - /piston/jobs:exec,uid=1000,gid=1000,mode=711
+    environment:
+      # Tran cung o muc dich vu; gateway con ap them gioi han rieng cho tung ngon ngu
+      PISTON_COMPILE_TIMEOUT: '60000'
+      PISTON_RUN_TIMEOUT: '15000'
+      PISTON_OUTPUT_MAX_SIZE: '33554432'
+      PISTON_MAX_PROCESS_COUNT: '128'
+      PISTON_MAX_OPEN_FILES: '256'
+      PISTON_DISABLE_NETWORKING: 'true'
+    healthcheck:
+      # Image khong co wget lan curl, chi co node — dung http.get chu khong dung fetch
+      # vi node trong image la v15, chua co fetch toan cuc
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "require('http').get('http://localhost:2000/api/v2/runtimes',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  piston-packages:
