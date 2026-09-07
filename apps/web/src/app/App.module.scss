@@ -1,0 +1,131 @@
+@use '../shared/styles/tokens' as *;
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  border-bottom: 1px solid $line;
+  background: $bg-panel;
+  flex-wrap: wrap;
+}
+
+.titleBar {
+  background: none;
+  border: none;
+  font-weight: 600;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.language {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: $muted;
+  font-size: 12px;
+
+  select {
+    background: $bg-raised;
+    border: 1px solid $line;
+    border-radius: 4px;
+    padding: 3px 6px;
+  }
+}
+
+.middle,
+.right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.buildError {
+  margin: 0;
+  padding: 10px 12px;
+  border-top: 1px solid $danger;
+  background: $danger-soft;
+  color: $danger;
+  white-space: pre-wrap;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  max-height: 30%;
+  overflow: auto;
+}
+
+.output {
+  border-top: 1px solid $line;
+  background: $bg-panel;
+  font-size: 12px;
+  max-height: 30%;
+  overflow: auto;
+
+  summary {
+    padding: 6px 12px;
+    cursor: pointer;
+    color: $muted;
+  }
+  pre {
+    margin: 0;
+    padding: 0 12px 10px;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+}
+
+.description {
+  margin: 0;
+  padding: 8px 12px;
+  border-top: 1px solid $line;
+  color: $muted;
+  font-size: 12px;
+}
+
+.empty {
+  padding: 20px;
+  color: $muted;
+}
+
+.plainToggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: $muted;
+  cursor: pointer;
+
+  input {
+    accent-color: $accent;
+    cursor: pointer;
+  }
+}
+
+.shortcuts {
+  margin-left: auto;
+  padding: 3px 9px;
+  border: 1px solid $line;
+  border-radius: 4px;
+  background: $bg-raised;
+  color: $muted;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    color: $text;
+    border-color: $accent;
+  }
+}
+
+.themeToggle {
+  padding: 4px 8px;
+  line-height: 1;
+  font-size: 14px;
+}
