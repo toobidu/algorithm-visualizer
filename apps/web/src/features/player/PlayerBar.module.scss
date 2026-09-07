@@ -1,0 +1,57 @@
+@use '../../shared/styles/tokens' as *;
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.primary {
+  background: $accent;
+  color: $on-accent;
+  border-color: $accent;
+  font-weight: 600;
+}
+
+.progress {
+  width: 160px;
+  accent-color: $accent;
+}
+
+.counter {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: $muted;
+  min-width: 72px;
+  text-align: center;
+}
+
+.speed {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: $muted;
+
+  input {
+    width: 90px;
+    accent-color: $accent;
+  }
+}
+
+.motion {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: $muted;
+
+  select {
+    background: $bg-raised;
+    border: 1px solid $line;
+    border-radius: 4px;
+    padding: 3px 6px;
+  }
+}
