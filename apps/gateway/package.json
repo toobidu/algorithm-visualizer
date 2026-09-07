@@ -1,0 +1,29 @@
+{
+  "name": "@av/gateway",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@av/config": "workspace:*",
+    "@av/protocol": "workspace:*",
+    "@fastify/cors": "^11.3.0",
+    "fastify": "^5.12.3",
+    "@av/autoviz": "workspace:*"
+  },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "typecheck": "tsc --build"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./piston": "./src/piston.ts",
+    "./prepare": "./src/prepare.ts",
+    "./server": "./src/server.ts",
+    "./plainMode": "./src/plainMode.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.13"
+  }
+}
