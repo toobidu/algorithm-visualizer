@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  # PLAN.md Task 0.2.1 — cong tinh o §3.1
+  quality:
+    name: Cong chat luong tinh
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm lint
+      - name: Format
+        run: pnpm format:check
+      - name: Import vong
+        run: pnpm deps:cycles
+      - name: Code chet va dependency thua
+        run: pnpm deps:unused
+      - name: Barrel sinh tu dong phai khop voi source
+        run: |
+          pnpm gen:barrels
+          git diff --exit-code -- config/src/registry.generated.ts
+
+  # PLAN.md Task 0.2.2 — cong test o §3.2
+  test:
+    name: Test va bao phu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Test kem bao phu
+        run: pnpm test:coverage
+      - name: Dua bao phu vao summary
+        if: always()
+        run: |
+          if [ -f coverage/coverage-summary.json ]; then
+            node -e "
+              const s = require('./coverage/coverage-summary.json').total;
+              const row = k => \`| \${k} | \${s[k].pct}% |\`;
+              console.log('| Chi so | Bao phu |');
+              console.log('|---|---|');
+              ['statements','branches','functions','lines'].forEach(k => console.log(row(k)));
+            " >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
+
+  # PLAN.md Task 0.2.3 — cong bao mat o §3.4
+  security:
+    name: Bao mat
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lo hong dependency
+        run: pnpm audit --audit-level=high
+      - name: Quet secret
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # PLAN.md Task 0.2.4 — hoi quy hieu nang o §3.2
+  bench:
+    name: Hoi quy hieu nang
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Chay benchmark
+        run: pnpm bench --outputJson bench-result.json
+      - name: So voi moc, fail neu cham di qua 10%
+        run: node scripts/check-bench.mjs bench-result.json docs/benchmarks/baseline.json
+
+  # Doi chieu goi Piston voi runtime that. Chay theo lich vi phu thuoc dich vu ben ngoai.
+  piston-drift:
+    name: Doi chieu goi Piston
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+        env:
+          PISTON_URL: https://emkc.org/api/v2/piston
