@@ -1,0 +1,98 @@
+@use '../../shared/styles/tokens' as *;
+
+.split {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.horizontal {
+  flex-direction: row;
+}
+.vertical {
+  flex-direction: column;
+}
+
+// flex-basis PHAI la 0.
+//
+// Voi gia tri mac dinh `auto`, flex-grow chi chia PHAN DU cua khung. Monaco co chieu rong
+// noi tai rat lon nen gan nhu khong con phan du: keo thanh chia thi trong so doi that
+// nhung layout khong nhuc nhich. Dat basis 0 de ty le hoan toan do flex-grow quyet dinh.
+.pane {
+  display: flex;
+  flex-basis: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pane > * {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+// Thanh chia phai NOI len tren panel ke ben: panel dung sau trong DOM se ve de len
+// vung bam mo rong cua no neu khong co z-index.
+.divider {
+  flex: 0 0 auto;
+  background: $line;
+  position: relative;
+  z-index: 5;
+  touch-action: none;
+  transition: background 0.12s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $accent;
+  }
+  &:active {
+    background: $accent;
+  }
+}
+
+.horizontal > .divider {
+  width: 6px;
+  cursor: col-resize;
+
+  // Vet keo o giua cho de nhan ra day la cho keo duoc
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    width: 2px;
+    height: 28px;
+    margin-top: -14px;
+    border-radius: 1px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+}
+
+.vertical > .divider {
+  height: 6px;
+  cursor: row-resize;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 2px;
+    height: 2px;
+    width: 28px;
+    margin-left: -14px;
+    border-radius: 1px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .divider {
+    transition: none;
+  }
+}
