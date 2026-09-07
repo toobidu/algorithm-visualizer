@@ -1,0 +1,34 @@
+{
+  "name": "@av/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --build && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --build"
+  },
+  "dependencies": {
+    "@av/autoviz": "workspace:*",
+    "@av/config": "workspace:*",
+    "@av/protocol": "workspace:*",
+    "@av/tracer-javascript": "workspace:*",
+    "@av/viz-core": "workspace:*",
+    "@reduxjs/toolkit": "^2.5.0",
+    "driver.js": "^1.8.0",
+    "monaco-editor": "^0.52.2",
+    "prettier": "^3.4.2",
+    "prettier-plugin-java": "^2.10.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "sass": "^1.83.4",
+    "vite": "^6.0.7"
+  }
+}
