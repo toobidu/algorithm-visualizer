@@ -1,0 +1,13 @@
+@use '../../shared/styles/tokens' as *;
+
+.editor {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+// Vạch sáng dong đang chạy — ngam #15
+:global(.monaco-editor) .currentLine {
+  background: $current-line;
+  border-left: 3px solid $selected;
+}
