@@ -1,0 +1,15 @@
+{
+  "name": "@av/autoviz",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@av/protocol": "workspace:*",
+    "@av/config": "workspace:*"
+  },
+  "scripts": {
+    "typecheck": "tsc --build"
+  }
+}
