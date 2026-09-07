@@ -1,0 +1,87 @@
+// Token mau dùng chung. Renderer trả về TEN NGU NGHIA, không tra ma mau,
+// nên doi theme chỉ can sua file này.
+//
+// Bang mau nam o CSS custom property chu khong o bien SCSS: bien SCSS bi bien dich mat
+// luc build nen KHONG doi duoc luc chay. Cac bien `$...` ben duoi chi la bi danh tro toi
+// bien CSS, nho vay 99 cho dang dung `$bg`, `$text`… trong 10 file khac giu nguyen.
+//
+// Khong duoc goi ham mau cua SCSS (`rgba($bg, .5)`, `darken(...)`) len nhung bien nay —
+// gia tri that chi ton tai o trinh duyet. Can mau mo thi them mot token rieng.
+
+:root {
+  --av-bg: #0f1418;
+  --av-bg-panel: #161d23;
+  --av-bg-raised: #1e272e;
+  --av-line: #2a353d;
+  --av-text: #dbe4e8;
+  --av-muted: #8fa3ad;
+  --av-accent: #45bab5;
+  --av-on-accent: #06231f;
+  --av-selected: #d99a2b;
+  --av-patched: #4b9fe0;
+  --av-visited: #7bbf6a;
+  --av-danger: #e8776c;
+
+  // Bien the mo, dung cho vung to nen va fill cua SVG
+  --av-selected-soft: rgba(217, 154, 43, 0.28);
+  --av-selected-fill: rgba(217, 154, 43, 0.35);
+  --av-patched-soft: rgba(75, 159, 224, 0.28);
+  --av-visited-fill: rgba(123, 191, 106, 0.35);
+  --av-danger-soft: rgba(232, 119, 108, 0.12);
+  --av-current-line: rgba(217, 154, 43, 0.18);
+
+  --av-overlay: rgba(0, 0, 0, 0.55);
+  --av-shadow-dialog: 0 18px 50px rgba(0, 0, 0, 0.5);
+  --av-shadow-toast: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme='light'] {
+  --av-bg: #f4f7f9;
+  --av-bg-panel: #ffffff;
+  --av-bg-raised: #e9eef1;
+  --av-line: #ccd8de;
+  --av-text: #16232a;
+  --av-muted: #55686f;
+  // Dam hon ban toi: cung mot sac tren nen sang thi khong du tuong phan chu
+  --av-accent: #0f7d78;
+  --av-on-accent: #ffffff;
+  --av-selected: #9a6b0f;
+  --av-patched: #1a6098;
+  --av-visited: #35762a;
+  --av-danger: #b8352a;
+
+  --av-selected-soft: rgba(154, 107, 15, 0.22);
+  --av-selected-fill: rgba(154, 107, 15, 0.3);
+  --av-patched-soft: rgba(26, 96, 152, 0.2);
+  --av-visited-fill: rgba(53, 118, 42, 0.28);
+  --av-danger-soft: rgba(184, 53, 42, 0.1);
+  --av-current-line: rgba(154, 107, 15, 0.14);
+
+  --av-overlay: rgba(22, 35, 42, 0.35);
+  --av-shadow-dialog: 0 18px 50px rgba(22, 35, 42, 0.22);
+  --av-shadow-toast: 0 6px 20px rgba(22, 35, 42, 0.18);
+}
+
+$bg: var(--av-bg);
+$bg-panel: var(--av-bg-panel);
+$bg-raised: var(--av-bg-raised);
+$line: var(--av-line);
+$text: var(--av-text);
+$muted: var(--av-muted);
+$accent: var(--av-accent);
+$on-accent: var(--av-on-accent);
+$selected: var(--av-selected);
+$patched: var(--av-patched);
+$visited: var(--av-visited);
+$danger: var(--av-danger);
+
+$selected-soft: var(--av-selected-soft);
+$selected-fill: var(--av-selected-fill);
+$patched-soft: var(--av-patched-soft);
+$visited-fill: var(--av-visited-fill);
+$danger-soft: var(--av-danger-soft);
+$current-line: var(--av-current-line);
+
+$overlay: var(--av-overlay);
+$shadow-dialog: var(--av-shadow-dialog);
+$shadow-toast: var(--av-shadow-toast);

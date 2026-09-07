@@ -1,0 +1,61 @@
+@use './tokens' as *;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: $bg;
+  color: $text;
+  font-family:
+    'IBM Plex Sans',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: $bg-raised;
+  border: 1px solid $line;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: $accent;
+  }
+  &:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid $accent;
+  outline-offset: 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
