@@ -157,7 +157,7 @@ export function buildScene(
   object: VizObject | undefined,
   resolve: (key: string) => VizObject | undefined,
 ): Scene {
-  if (object === undefined) return { kind: 'empty', reason: 'Khong co doi tuong goc' };
+  if (object === undefined) return { kind: 'empty', reason: 'Trống' };
 
   if (object instanceof Layout) {
     const children = object.childKeys.map((key) => buildScene(resolve(key), resolve));

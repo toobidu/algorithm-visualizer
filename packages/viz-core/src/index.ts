@@ -13,6 +13,13 @@ export {
 export { toDisplayString } from './format';
 export { createPrng, seedFromKey, type Prng } from './prng';
 export { buildScene } from './render/build';
+export {
+  diffBars,
+  diffGrid,
+  findComparison,
+  type Comparison,
+  type SceneEvent,
+} from './render/events';
 export type {
   BarScene,
   EmptyScene,

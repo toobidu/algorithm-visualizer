@@ -24,7 +24,54 @@ pnpm piston:install   # cài gói ngôn ngữ vào Piston
 pnpm dev:gateway      # dịch vụ chạy code: http://127.0.0.1:3001
 ```
 
-Xem [deploy/piston/README.md](deploy/piston/README.md).
+Toàn bộ lệnh dựng, chạy, kiểm tra và tắt: [docs/chay-du-an.md](docs/chay-du-an.md).
+Riêng phần Piston: [deploy/piston/README.md](deploy/piston/README.md).
+
+## Trình soạn thảo
+
+Panel bên phải là Monaco (lõi của VS Code). Mở app lên là một file trống — không có bài mẫu,
+code bạn gõ được lưu vào `localStorage` nên đóng tab rồi mở lại vẫn còn.
+
+Bấm nút **Phím tắt** ở thanh trên cùng, hoặc `Ctrl+Alt+K` ở bất cứ đâu, để xem bảng phím tắt
+đầy đủ ngay trong app. Bảng đó là bản đầy đủ; dưới đây chỉ là phần hay dùng nhất.
+
+| Phím                            | Làm gì                                                                           |
+| ------------------------------- | -------------------------------------------------------------------------------- |
+| `Ctrl+Alt+K`                    | Mở bảng phím tắt                                                                 |
+| `Ctrl+Enter`                    | Chạy code                                                                        |
+| `Space`                         | Phát hoặc tạm dừng                                                               |
+| `←` / `→`                       | Lùi / tới một bước                                                               |
+| `Home` / `End`                  | Về khung đầu / tới khung cuối                                                    |
+| `Ctrl+Alt+L` hoặc `Shift+Alt+F` | Định dạng code                                                                   |
+| `Ctrl+/`                        | Bật tắt comment dòng, đúng ký hiệu của từng ngôn ngữ                             |
+| `Alt+↑` / `Alt+↓`               | Di chuyển cả dòng                                                                |
+| `Ctrl+D`                        | Chọn thêm chỗ giống từ đang bôi đen                                              |
+| `Ctrl+F`                        | Tìm kiếm trong file                                                              |
+| Nút ☀ / ☾                       | Đổi giao diện sáng – tối. Lần đầu theo cài đặt hệ điều hành, sau đó nhớ lựa chọn |
+| Nút Hướng dẫn                   | Mở lại tour chỉ dẫn (tự hiện ở lần vào đầu tiên)                                 |
+| Ô **Hiệu ứng**                  | Độ biểu cảm của hoạt cảnh: Gọn – Chuyển động – Cánh tay gắp                      |
+| `Alt+Click`                     | Thêm con trỏ                                                                     |
+
+Phím của trình phát nghe ở cấp trang, nhưng nhường lại cho ô đang gõ: `Space` khi con trỏ nằm
+trong editor vẫn là dấu cách.
+
+### Định dạng code chạy tới đâu
+
+| Mức                                   | Ngôn ngữ                                           |
+| ------------------------------------- | -------------------------------------------------- |
+| Prettier thật, ngắt dòng theo cú pháp | JavaScript, TypeScript, Java, Markdown, JSON       |
+| Chỉ chuẩn hoá thụt lề theo ngoặc nhọn | C++, C#, Dart, Go, Kotlin, PHP, Rust, Scala, Swift |
+| Chưa có                               | Python, Ruby, Elixir, Erlang, Racket               |
+
+Java đi qua `prettier-plugin-java` (parser tree-sitter dạng wasm), nạp muộn nên chỉ tải khi bạn
+thật sự bấm định dạng. Mức thụt lề không ngắt dòng lại và không đụng vào khoảng trắng giữa dòng —
+không có parser thật cho từng ngôn ngữ thì mọi thao tác mạnh tay hơn đều có ngày làm hỏng code.
+Nhóm cuối bị bỏ trống có chủ đích: thụt lề của chúng là cú pháp, đoán sai một dòng là đổi luôn ý
+nghĩa chương trình; bấm phím định dạng ở đó sẽ báo rõ thay vì im lặng không làm gì.
+
+Đổi dropdown **Ngôn ngữ** sẽ chuyển sang file cùng đuôi nếu đang có; không có thì đổi tên file
+đang mở và **giữ nguyên nội dung** — dán code Java vào rồi chọn Java là chạy được ngay.
+Muốn viết nhiều ngôn ngữ cùng lúc thì bấm **+** thêm file.
 
 ## Tự trực quan hóa
 
@@ -59,14 +106,14 @@ con trỏ tô sáng, `maxProfit` và `profit` hiện trong panel Biến. Ghi đ�
 
 ### Ngôn ngữ hỗ trợ chế độ này
 
-| Ngôn ngữ | Cách lấy bước | Chạy ở đâu |
-|---|---|---|
-| JavaScript, TypeScript | Chèn lời gọi vào mã nguồn | Web Worker (không cần Docker) |
-| Python | `sys.settrace` — không đụng vào mã nguồn | Piston |
-| Ruby | `TracePoint` — không đụng vào mã nguồn | Piston |
-| PHP | `declare(ticks=1)` — không đụng vào mã nguồn | Piston |
-| Java | Chèn `AvTrace.step(...)` sau mỗi câu lệnh | Piston |
-| Go | Chèn `AvStep(...)` sau mỗi câu lệnh | Piston |
+| Ngôn ngữ               | Cách lấy bước                                | Chạy ở đâu                    |
+| ---------------------- | -------------------------------------------- | ----------------------------- |
+| JavaScript, TypeScript | Chèn lời gọi vào mã nguồn                    | Web Worker (không cần Docker) |
+| Python                 | `sys.settrace` — không đụng vào mã nguồn     | Piston                        |
+| Ruby                   | `TracePoint` — không đụng vào mã nguồn       | Piston                        |
+| PHP                    | `declare(ticks=1)` — không đụng vào mã nguồn | Piston                        |
+| Java                   | Chèn `AvTrace.step(...)` sau mỗi câu lệnh    | Piston                        |
+| Go                     | Chèn `AvStep(...)` sau mỗi câu lệnh          | Piston                        |
 
 **Thêm một ngôn ngữ mới vào chế độ này** = một file trong `packages/autoviz/src/adapters/`
 cộng một dòng trong `registry.ts`. Không đụng vào gateway, giao diện, hay logic suy vai trò
@@ -75,15 +122,15 @@ phần khó (theo dõi phạm vi theo độ sâu ngoặc) đã viết sẵn mộ
 
 ## Trạng thái ngôn ngữ
 
-| Ngôn ngữ | Chế độ thường (gọi tracer) | Tự trực quan hóa |
-|---|---|---|
-| JavaScript, TypeScript | ✅ trong trình duyệt | ✅ trong trình duyệt |
-| Python | ✅ qua Piston | ✅ qua Piston |
-| Go | ✅ qua Piston | ✅ qua Piston |
-| Java | ✅ qua Piston | ✅ qua Piston |
-| Ruby | ✅ qua Piston | ✅ qua Piston |
-| PHP | ✅ qua Piston | ✅ qua Piston |
-| C++ | ✅ qua Piston | chưa |
+| Ngôn ngữ               | Chế độ thường (gọi tracer) | Tự trực quan hóa     |
+| ---------------------- | -------------------------- | -------------------- |
+| JavaScript, TypeScript | ✅ trong trình duyệt       | ✅ trong trình duyệt |
+| Python                 | ✅ qua Piston              | ✅ qua Piston        |
+| Go                     | ✅ qua Piston              | ✅ qua Piston        |
+| Java                   | ✅ qua Piston              | ✅ qua Piston        |
+| Ruby                   | ✅ qua Piston              | ✅ qua Piston        |
+| PHP                    | ✅ qua Piston              | ✅ qua Piston        |
+| C++                    | ✅ qua Piston              | chưa                 |
 
 Bảy ngôn ngữ đầu đã được **bộ tuân thủ kiểm chứng là sinh ra command list giống hệt nhau
 từng byte** khi chạy cùng một thuật toán trên Piston thật.
@@ -112,10 +159,10 @@ code có gọi tracer                   code thuần, không gọi gì
 
 Toàn bộ engine animation không biết gì về ngôn ngữ lập trình — nó chỉ thấy command list.
 
-| Muốn thêm | Phải viết |
-|---|---|
-| Ngôn ngữ mới, chế độ thường | Thư viện tracer trong `tracers/` + một file trong `config/src/languages/` + một dòng trong bảng `CASES` của bộ tuân thủ |
-| Ngôn ngữ mới, tự trực quan hóa | Một adapter trong `packages/autoviz/src/adapters/` + một dòng trong `registry.ts` |
+| Muốn thêm                      | Phải viết                                                                                                               |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Ngôn ngữ mới, chế độ thường    | Thư viện tracer trong `tracers/` + một file trong `config/src/languages/` + một dòng trong bảng `CASES` của bộ tuân thủ |
+| Ngôn ngữ mới, tự trực quan hóa | Một adapter trong `packages/autoviz/src/adapters/` + một dòng trong `registry.ts`                                       |
 
 API mà thư viện tracer phải phơi ra: [docs/tracer-api.md](docs/tracer-api.md) — sinh tự động
 từ `packages/protocol/src/registry.ts` nên không thể trôi lệch.
@@ -123,13 +170,14 @@ từ `packages/protocol/src/registry.ts` nên không thể trôi lệch.
 `consistency.test.ts` sẽ đỏ nếu `config/src/languages/` và `PLAIN_ADAPTERS` lệch nhau, nên
 không thể quên một trong hai chỗ.
 
-| Gói | Vai trò |
-|---|---|
-| `packages/protocol` | Giao thức lệnh: schema, parser, chunker. Nguồn chân lý |
+| Gói                 | Vai trò                                                       |
+| ------------------- | ------------------------------------------------------------- |
+| `packages/protocol` | Giao thức lệnh: schema, parser, chunker. Nguồn chân lý        |
 | `packages/viz-core` | Tracer model + renderer, TypeScript thuần, không import React |
+
 | `packages/autoviz` | Chế độ tự trực quan hóa: adapter từng ngôn ngữ, suy vai trò biến, sinh lệnh |
 | `config` | Mô tả 17 ngôn ngữ, mỗi ngôn ngữ một file |
-| `apps/web` | Giao diện |
+| `apps/web` | Giao diện. Component viết tay, không dùng thư viện UI — xem [docs/refactor-components.md](docs/refactor-components.md) |
 | `apps/gateway` | Ghép tracer + code, gọi Piston, parse kết quả |
 | `tracers/*` | Thư viện tracer từng ngôn ngữ |
 | `tracers/_conformance` | Chạy cùng thuật toán ở mọi ngôn ngữ, so command list từng byte |
@@ -146,6 +194,7 @@ PISTON_URL=http://localhost:2000/api/v2 pnpm test      # thêm bộ tuân thủ 
 
 Kế hoạch chi tiết và 48 hành vi ngầm phải giữ đúng: [PLAN.md](PLAN.md).
 API tracer: [docs/tracer-api.md](docs/tracer-api.md).
+Ý tưởng nâng cấp hoạt cảnh: [docs/y-tuong-hoat-canh.md](docs/y-tuong-hoat-canh.md).
 Tiến độ: [docs/status.md](docs/status.md).
 
 ## Giấy phép
