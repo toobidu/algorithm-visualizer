@@ -17,6 +17,23 @@
 // và suất đó thuộc về code người dùng.
 
 final class Av {
+
+    // `System.out` cua Java dung bang ma cua NEN TANG, ma container cua Piston chay voi
+    // locale POSIX nen bang ma do la ASCII: moi ky tu ngoai ASCII bien thanh '?'. Hong ca
+    // output cua nguoi dung lan ten panel di qua kenh lenh.
+    //
+    // Piston khong cho truyen co JVM (khong co `-Dfile.encoding`, khong co bien moi truong)
+    // nen phai tu dat lai o day. Khoi static chay khi class duoc nap lan dau, tuc ngay
+    // truoc loi goi tracer dau tien.
+    static {
+        try {
+            System.setOut(
+                new java.io.PrintStream(
+                    new java.io.FileOutputStream(java.io.FileDescriptor.out), true, "UTF-8"));
+        } catch (java.io.UnsupportedEncodingException error) {
+            // Khong doi duoc thi giu nguyen con hon lam chuong trinh chet
+        }
+    }
     private static final char BS = (char) 92;
     private static final char RS = (char) 30;
     static final String PREFIX = "" + RS + "@AV|";
