@@ -1,0 +1,77 @@
+@use '../../shared/styles/tokens' as *;
+
+.claw {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  // Tay chỉ để nhìn: không được nuốt cú bấm của người dùng
+  pointer-events: none;
+  z-index: 3;
+}
+
+.rig {
+  animation: descend var(--claw-duration) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.mast,
+.beam {
+  stroke: $accent;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.jaw {
+  fill: none;
+  stroke: $accent;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.grip {
+  animation: clamp-jaws var(--claw-duration) ease-in-out both;
+  transform-box: fill-box;
+}
+
+// Hạ xuống, dừng lại kẹp, rồi rút lên
+@keyframes descend {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  18% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+// Càng mở ra rồi khép lại đúng lúc hai ô bắt đầu bay
+@keyframes clamp-jaws {
+  0%,
+  20% {
+    scale: 1.35 1;
+  }
+  35%,
+  65% {
+    scale: 0.75 1;
+  }
+  100% {
+    scale: 1.35 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .claw {
+    display: none;
+  }
+}
