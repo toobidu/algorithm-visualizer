@@ -38,6 +38,24 @@ describe('framing', () => {
     expect(splitStream('')).toEqual({ commandLines: [], userOutput: '' });
   });
 
+  it('lenh dinh ngay sau output khong xuong dong van tach duoc', () => {
+    const stdout = `5${frame('{"line":72}')}
+`;
+
+    expect(splitStream(stdout)).toEqual({
+      commandLines: ['{"line":72}'],
+      userOutput: '5',
+    });
+  });
+
+  it('output nguoi dung giu nguyen khi bi ban ghi chen vao giua dong', () => {
+    const stdout = `a${frame('x')}
+b${frame('y')}
+`;
+
+    expect(splitStream(stdout).userOutput).toBe('ab');
+  });
+
   it('payload chua ky tu giong tien to khong lam vo viec tach', () => {
     const payload = `{"text":"${COMMAND_PREFIX}gia mao"}`;
 

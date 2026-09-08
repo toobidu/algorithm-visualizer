@@ -39,24 +39,39 @@ export interface SplitStream {
   readonly userOutput: string;
 }
 
-/** Tach stdout tho cua Piston thanh hai luong: lenh, va output cua nguoi dung. */
+/**
+ * Tach stdout tho cua Piston thanh hai luong: lenh, va output cua nguoi dung.
+ *
+ * Bản ghi bắt đầu ngay tại tiền tố chứ không đợi đầu dòng. Thư viện tracer của mọi ngôn
+ * ngữ in `PREFIX + payload + \n` — có newline đóng nhưng không có newline mở. Nên khi code
+ * người dùng in mà không xuống dòng (`echo` của PHP, `print(end='')` của Python,
+ * `fmt.Print`, `System.out.print`) thì bản ghi kế tiếp dính vào đuôi dòng đó: cắt theo đầu
+ * dòng sẽ vừa mất lệnh vừa đẩy rác giao thức ra panel output người dùng.
+ *
+ * Cắt xong một bản ghi thì nhảy thẳng qua hết dòng, nên payload có chứa chuỗi giống tiền
+ * tố cũng không bị xé làm đôi.
+ */
 export function splitStream(stdout: string): SplitStream {
   const commandLines: string[] = [];
-  const userLines: string[] = [];
+  let userOutput = '';
+  let index = 0;
 
-  for (const line of stdout.split('\n')) {
-    const framed = classifyLine(line);
-    if (framed.kind === 'command') {
-      commandLines.push(framed.text);
-    } else {
-      userLines.push(framed.text);
+  while (index < stdout.length) {
+    const at = stdout.indexOf(COMMAND_PREFIX, index);
+    if (at === -1) {
+      userOutput += stdout.slice(index);
+      break;
     }
+
+    userOutput += stdout.slice(index, at);
+
+    const start = at + COMMAND_PREFIX.length;
+    const end = stdout.indexOf('\n', start);
+    commandLines.push(end === -1 ? stdout.slice(start) : stdout.slice(start, end));
+    // Nuốt luôn newline đóng bản ghi để nó không thành dòng trống trong output
+    index = end === -1 ? stdout.length : end + 1;
   }
 
-  // Bỏ dòng rỗng cuối đó split sinh ra, nhưng giữ mỗi dòng rỗng o giữa
-  while (userLines.length > 0 && userLines[userLines.length - 1] === '') {
-    userLines.pop();
-  }
-
-  return { commandLines, userOutput: userLines.join('\n') };
+  // Bỏ newline thừa ở cuối, nhưng giữ mọi dòng rỗng ở giữa
+  return { commandLines, userOutput: userOutput.replace(/\n+$/, '') };
 }
